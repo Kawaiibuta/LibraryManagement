@@ -25,7 +25,7 @@ function App() {
     return (
         <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn, isAdmin, setAdmin, token, setToken, userInfo, setUserInfo, BRInfo, setBRInfo, adminInfo, setAdminInfo }}>
             <Routes>
-                <Route path="*" element={<Main />}></Route>
+                <Route path="*" element={isLoggedIn ? (<Main />) : <Navigate to="/SignIn" />}></Route>
                 <Route path="/SignIn" element={<SignInPage />}></Route>
                 <Route path="/SignUp" element={<SignUpPage />}></Route>
                 <Route path="/ResetPass" element={<ResetPassPage />}></Route>

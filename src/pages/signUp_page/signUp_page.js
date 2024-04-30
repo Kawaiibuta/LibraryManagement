@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import alert from '../components/alert'
 import success from '../components/success'
+import endpoints from '../../constraints/endpoint'
 
 export default function SignUpPage() {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function SignUpPage() {
                     address: address
                 })
             }
-            await fetch('https://library2.herokuapp.com/users/', option)
+            await fetch(endpoints.users, option)
                 .then(res => {
                     if (res.status === 409 || res.status === 400)
                         return res.json()

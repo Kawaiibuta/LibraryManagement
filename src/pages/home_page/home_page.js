@@ -10,6 +10,7 @@ import { Selection } from '../components/select'
 import statusSort from '../components/sortStatus'
 import success from '../components/success'
 import alert from '../components/alert'
+import endpoints from "../../constraints/endpoint";
 
 export default function HomePage() {
     const { isAdmin, userId, token } = useContext(AppContext);
@@ -76,7 +77,7 @@ export default function HomePage() {
 
     //Call API books
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/books/')
+        fetch(endpoints.books)
             .then(res => res.json())
             .then(books => {
                 setBookAPI(() => {
@@ -88,7 +89,7 @@ export default function HomePage() {
 
     //Call API Genres
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/genres/')
+        fetch(endpoints.genres)
             .then(res => res.json())
             .then(genres => setGenres(genres))
     }, [])
@@ -135,7 +136,7 @@ export default function HomePage() {
                         genreIds: ele.genres.map(ele => ele.genreId)
                     })
                 }
-                await fetch('https://library2.herokuapp.com/books/', option)
+                await fetch(endpoints.books, option)
                     .then(res => res.json())
                     .then(res => {
                         const arr = [res, ...bookAPI]

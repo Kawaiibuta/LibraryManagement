@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { AppContext } from '../../App'
 import alert from '../components/alert'
+import endpoints from '../../constraints/endpoint'
 
 export default function SignInPage() {
     const [user, setUser] = useState("")
@@ -32,12 +33,12 @@ export default function SignInPage() {
                     password: pass
                 })
             }
-            await fetch('https://library2.herokuapp.com/auth/login/', option)
+            await fetch(endpoints.login, option)
                 .then(response => response.json())
                 .then(data => {
                     if (data.access_token) {
                         if (user === "admin") {
-                            fetch("https://library2.herokuapp.com/users/me/", {
+                            fetch(endpoints.me, {
                                 headers: {
                                     'Authorization': 'Bearer ' + data.access_token
                                 }
@@ -46,7 +47,7 @@ export default function SignInPage() {
                             setAdmin(cur => !cur)
                         }
                         else {
-                            fetch("https://library2.herokuapp.com/users/me/", {
+                            fetch(endpoints.me, {
                                 headers: {
                                     'Authorization': 'Bearer ' + data.access_token
                                 }
