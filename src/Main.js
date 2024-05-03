@@ -4,6 +4,7 @@ import { Routes, Route, NavLink } from 'react-router-dom'
 import HomePage from './pages/home_page/home_page'
 import AcceptSignOut from './accept_SignOut'
 import { AppContext } from './App'
+import StoragePage from './pages/storage_page/storage_page'
 
 function Main() {
   const { isAdmin } = useContext(AppContext);
@@ -100,6 +101,9 @@ function Main() {
         <Routes>
           {/* HomePage */}
           <Route path="/" element={<HomePage />}></Route>
+                    {/* StoragePage */}
+                    <Route path="/Storage" element={<StoragePage />}></Route>
+
         </Routes>
         <div id="overlay"></div>
       </div>
