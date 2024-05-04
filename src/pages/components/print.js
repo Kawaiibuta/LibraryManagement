@@ -1,6 +1,7 @@
 import './components.scss'
 import { useState, useEffect } from 'react'
 import alert from './alert'
+import endpoints from '../../constraints/endpoint'
 
 export function Print(props) {
     const [money, setMoney] = useState("")
@@ -28,7 +29,7 @@ export function Print(props) {
                     pay: Number(money)
                 })
             }
-            await fetch('https://library2.herokuapp.com/fine_receipts/', option)
+            await fetch(endpoints.fineReceipts, option)
 
             const printInfo = document.querySelector(".print-info")
             printInfo.style.display = "none"

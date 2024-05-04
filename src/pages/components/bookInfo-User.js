@@ -1,6 +1,7 @@
 import './components.scss'
 import { useEffect } from 'react'
 import success from './success'
+import endpoints from '../../constraints/endpoint'
 
 export function BookInfoUser(props) {
 
@@ -30,7 +31,7 @@ export function BookInfoUser(props) {
                 bookId: props.bookId,
             })
         }
-        await fetch('https://library2.herokuapp.com/book_shelf/', option)
+        await fetch(endpoints.bookshelf, option)
 
         success("Thêm vào giỏ sách thành công")
     }
