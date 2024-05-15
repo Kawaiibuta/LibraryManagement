@@ -2,6 +2,10 @@ import './Main.scss';
 import { useContext } from 'react'
 import { Routes, Route, NavLink } from 'react-router-dom'
 import HomePage from './pages/home_page/home_page'
+import StatisticsPage from './pages/statistics_page/statistics_page'
+import BorrowByGenres from './pages/statistics_page/borrowByGenres'
+import PassDue from './pages/statistics_page/passDue'
+
 import AcceptSignOut from './accept_SignOut'
 import { AppContext } from './App'
 
@@ -100,6 +104,11 @@ function Main() {
         <Routes>
           {/* HomePage */}
           <Route path="/" element={<HomePage />}></Route>
+                  {/* StatisticsPage */}
+                  <Route path="/Statistics" element={<StatisticsPage />}></Route>
+          <Route path="/Statistics/Genres" element={<BorrowByGenres />}></Route>
+          <Route path="/Statistics/Passdue" element={<PassDue />}></Route>
+ 
         </Routes>
         <div id="overlay"></div>
       </div>
