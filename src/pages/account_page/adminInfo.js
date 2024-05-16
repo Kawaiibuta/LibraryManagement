@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { AppContext } from '../../App'
 import nomalize from '..//components/nomalize'
 import alert from '../components/alert'
+import endpoints from '../../constraints/endpoint'
 
 export default function AdminInfo() {
     const { token, adminInfo, setAdminInfo } = useContext(AppContext);
@@ -77,7 +78,7 @@ export default function AdminInfo() {
                         address: address,
                     })
                 }
-                await fetch(`https://library2.herokuapp.com/users/me/`, option)
+                await fetch(endpoints.me, option)
                     .then(res => {
                         if (res.status === 409)
                             return res.json()

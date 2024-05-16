@@ -4,6 +4,7 @@ import ReturnCard from '../../components/returnCard'
 import { useContext, useState, useEffect } from 'react'
 import { AppContext } from '../../../App'
 import { Print } from '../../components/print'
+import endpoints from '../../../constraints/endpoint'
 
 export default function ReturnCardPage() {
     const { BRInfo, userInfo, token } = useContext(AppContext)
@@ -11,7 +12,7 @@ export default function ReturnCardPage() {
     const [API, setAPI] = useState(false)
 
     useEffect(() => {
-        fetch(`https://library2.herokuapp.com/users/user/${userInfo.userId}/`, {
+        fetch(`${endpoints.user}${userInfo.userId}/`, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }

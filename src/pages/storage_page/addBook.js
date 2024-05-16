@@ -30,7 +30,7 @@ export function AddBook(props) {
     }
 
     useEffect(() => {
-        fetch(`${endpoints.rules}/max_publish_year/`, {
+        fetch(endpoints.max_publish_year, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }

@@ -5,6 +5,7 @@ import { AppContext } from '../../../App'
 import DataTable from 'react-data-table-component'
 import { CustomStyle } from './table_props'
 import { borrowDateSort, returnDateSort } from '../../components/dateSort'
+import endpoints from '../../../constraints/endpoint'
 
 export default function MyHistoryPage() {
     const { userInfo } = useContext(AppContext)
@@ -12,7 +13,7 @@ export default function MyHistoryPage() {
 
     //define data
     useEffect(() => {
-        fetch(`https://library2.herokuapp.com/book_borrow_return_histories/user/${userInfo.userId}/`)
+        fetch(`${endpoints.book_borrow_return_user}${userInfo.userId}/`)
             .then(res => res.json())
             .then(brInfo => {
                 brInfo.map((ele, index) => {

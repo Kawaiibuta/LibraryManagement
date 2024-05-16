@@ -1,19 +1,29 @@
-import './Main.scss';
-import { useContext } from 'react'
-import { Routes, Route, NavLink } from 'react-router-dom'
-import HomePage from './pages/home_page/home_page'
-import AcceptSignOut from './accept_SignOut'
-import { AppContext } from './App'
+import "./Main.scss";
+import { useContext } from "react";
+import { Routes, Route, NavLink } from "react-router-dom";
+import HomePage from "./pages/home_page/home_page";
+import StatisticsPage from "./pages/statistics_page/statistics_page";
+import BorrowByGenres from "./pages/statistics_page/borrowByGenres";
+import PassDue from "./pages/statistics_page/passDue";
+import SettingPage from './pages/setting_page/setting_page'
 import StoragePage from './pages/storage_page/storage_page'
+import AccountPage from './pages/account_page/account_page'
+import ChangePassPage from './pages/account_page/changePass/changePass'
+import AdminInfo from './pages/account_page/adminInfo'
+import Info from './pages/account_page/userInfo'
+import UserCart from './pages/account_page/user_cart'
+
+import AcceptSignOut from "./accept_SignOut";
+import { AppContext } from "./App";
 
 function Main() {
   const { isAdmin } = useContext(AppContext);
 
   function handleSignOut() {
-    const overLay = document.querySelector("#overlay")
-    overLay.style.display = "flex"
-    const acceptTable = document.querySelector(".accept-signout")
-    acceptTable.style.display = "flex"
+    const overLay = document.querySelector("#overlay");
+    overLay.style.display = "flex";
+    const acceptTable = document.querySelector(".accept-signout");
+    acceptTable.style.display = "flex";
   }
 
   return (
@@ -33,28 +43,32 @@ function Main() {
                 <span>Trang chủ</span>
               </NavLink>
             </li>
-            {(!isAdmin) || <li>
-              <NavLink id="Reader" className="list-item" to="/Reader" >
-                <img
-                  className="icon"
-                  src={require("./assets/nav-bar-icons/author.svg").default}
-                  alt=""
-                />
-                <span>Độc giả</span>
-              </NavLink>
-            </li>}
-            {(!isAdmin) || <li>
-              <NavLink id="Storage" className="list-item" to="/Storage" >
-                <img
-                  className="icon"
-                  src={require("./assets/nav-bar-icons/store.svg").default}
-                  alt=""
-                />
-                <span>Kho sách</span>
-              </NavLink>
-            </li>}
+            {!isAdmin || (
+              <li>
+                <NavLink id="Reader" className="list-item" to="/Reader">
+                  <img
+                    className="icon"
+                    src={require("./assets/nav-bar-icons/author.svg").default}
+                    alt=""
+                  />
+                  <span>Độc giả</span>
+                </NavLink>
+              </li>
+            )}
+            {!isAdmin || (
+              <li>
+                <NavLink id="Storage" className="list-item" to="/Storage">
+                  <img
+                    className="icon"
+                    src={require("./assets/nav-bar-icons/store.svg").default}
+                    alt=""
+                  />
+                  <span>Kho sách</span>
+                </NavLink>
+              </li>
+            )}
             <li>
-              <NavLink id="Service" className="list-item" to="/Service" >
+              <NavLink id="Service" className="list-item" to="/Service">
                 <img
                   className="icon"
                   src={require("./assets/nav-bar-icons/service.svg").default}
@@ -63,26 +77,32 @@ function Main() {
                 <span>Dịch vụ</span>
               </NavLink>
             </li>
-            {(!isAdmin) || <li>
-              <NavLink id="Statistics" className="list-item" to="/Statistics" >
-                <img
-                  className="icon"
-                  src={require("./assets/nav-bar-icons/statistic.svg").default}
-                  alt=""
-                />
-                <span>Thống kê</span>
-              </NavLink>
-            </li>}
-            {(!isAdmin) || <li>
-              <NavLink id="Setting" className="list-item" to="/Setting" >
-                <img
-                  className="icon"
-                  src={require("./assets/nav-bar-icons/setting.svg").default}
-                  alt=""
-                />
-                <span>Tùy chỉnh</span >
-              </NavLink>
-            </li>}
+            {!isAdmin || (
+              <li>
+                <NavLink id="Statistics" className="list-item" to="/Statistics">
+                  <img
+                    className="icon"
+                    src={
+                      require("./assets/nav-bar-icons/statistic.svg").default
+                    }
+                    alt=""
+                  />
+                  <span>Thống kê</span>
+                </NavLink>
+              </li>
+            )}
+            {!isAdmin || (
+              <li>
+                <NavLink id="Setting" className="list-item" to="/Setting">
+                  <img
+                    className="icon"
+                    src={require("./assets/nav-bar-icons/setting.svg").default}
+                    alt=""
+                  />
+                  <span>Tùy chỉnh</span>
+                </NavLink>
+              </li>
+            )}
           </ul>
           <div className="account">
             <NavLink className="list-item" to="/Account">
@@ -95,14 +115,29 @@ function Main() {
             </NavLink>
           </div>
           <div className="sign-out-tab">
-            <div onClick={handleSignOut} className="sign-out" >Đăng xuất</div>
+            <div onClick={handleSignOut} className="sign-out">
+              Đăng xuất
+            </div>
           </div>
         </div>
         <Routes>
           {/* HomePage */}
           <Route path="/" element={<HomePage />}></Route>
-                    {/* StoragePage */}
-                    <Route path="/Storage" element={<StoragePage />}></Route>
+          {/* SettingPage */}
+          <Route path="/Setting/*" element={<SettingPage />}></Route>
+{/* StoragePage */}
+<Route path="/Storage" element={<StoragePage />}></Route>
+
+          {/* StatisticsPage */}
+          <Route path="/Statistics" element={<StatisticsPage />}></Route>
+          <Route path="/Statistics/Genres" element={<BorrowByGenres />}></Route>
+          <Route path="/Statistics/Passdue" element={<PassDue />}></Route>
+                  {/* AccountPage */}
+                  <Route path="/Account" element={<AccountPage />}></Route>
+          <Route path="/Account/Cart" element={<UserCart />}></Route>
+          <Route path="/Account/Info" element={<Info />}></Route>
+          <Route path="/Account/AdminInfo" element={<AdminInfo />}></Route>
+          <Route path="/Account/ChangePass" element={<ChangePassPage />}></Route>
 
         </Routes>
         <div id="overlay"></div>

@@ -5,6 +5,7 @@ import DataTable from 'react-data-table-component';
 import { CustomStyle } from '../../components/table_props'
 import nomalize from '../../components/nomalize'
 import "../../home_page/home_page.scss"
+import endpoints from '../../../constraints/endpoint';
 
 export default function BRHistoryPage() {
     //define context
@@ -46,7 +47,7 @@ export default function BRHistoryPage() {
 
     //Get data
     useEffect(() => {
-        fetch("https://library2.herokuapp.com/users/", {
+        fetch(endpoints.users, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }

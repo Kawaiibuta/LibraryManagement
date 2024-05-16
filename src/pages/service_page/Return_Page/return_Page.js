@@ -6,6 +6,7 @@ import { CustomStyle } from '../../components/table_props'
 import nomalize from '../../components/nomalize'
 import "../../home_page/home_page.scss"
 import { createdDateSort } from '../../components/dateSort'
+import endpoints from '../../../constraints/endpoint';
 
 export default function ReturnPage() {
     //define context
@@ -64,16 +65,16 @@ export default function ReturnPage() {
 
     //Get data
     useEffect(() => {
-        fetch("https://library2.herokuapp.com/book_return_sessions/")
+        fetch(endpoints.book_borrow_sessions)
             .then(res => res.json())
             .then(session => {
                 //define clickInfoReturn
                 async function handleClickInfo(ele, e) {
                     e.target.style.cursor = "wait"
-                    await fetch(`https://library2.herokuapp.com/book_borrow_return_histories/return_session/${ele._id}/`)
+                    await fetch(`e${endpoints.book_borrow_return_session}${ele._id}/`)
                         .then(res => res.json())
                         .then(async info => {
-                            await fetch(`https://library2.herokuapp.com/users/user/${info.info[0].userId}/`, {
+                            await fetch(`${endpoints.user}${info.info[0].userId}/`, {
                                 headers: {
                                     'Authorization': 'Bearer ' + token
                                 }

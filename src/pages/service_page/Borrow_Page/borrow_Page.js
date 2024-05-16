@@ -6,6 +6,7 @@ import { CustomStyle } from '../../components/table_props'
 import nomalize from '../../components/nomalize'
 import "../../home_page/home_page.scss"
 import { createdDateSort } from '../../components/dateSort'
+import endpoints from '../../../constraints/endpoint';
 
 export default function BorrowPage() {
     //define context
@@ -65,13 +66,13 @@ export default function BorrowPage() {
 
     //Get data
     useEffect(() => {
-        fetch("https://library2.herokuapp.com/book_borrow_sessions/")
+        fetch(endpoints.book_borrow_session)
             .then(res => res.json())
             .then(session => {
                 //define clickInfoBorrow
                 async function handleClickInfo(ele, e) {
                     e.target.style.cursor = "wait"
-                    await fetch(`https://library2.herokuapp.com/book_borrow_sessions/session/${ele._id}/`)
+                    await fetch(`${endpoints.book_borrow_session}/session/${ele._id}/`)
                         .then(res => res.json())
                         .then(info => {
                             setUserInfo({ username: info[0].username, name: info[0].name, quantity: info[0].quantity })

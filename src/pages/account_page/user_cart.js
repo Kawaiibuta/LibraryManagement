@@ -6,6 +6,7 @@ import './account_page.scss'
 import { AppContext } from '../../App'
 import alert from '../components/alert'
 import statusSort from '../components/sortStatus'
+import endpoints from '../../constraints/endpoint'
 
 export default function UserCart() {
     //Define info 
@@ -35,12 +36,12 @@ export default function UserCart() {
 
     //get max borrow
     useEffect(() => {
-        fetch("https://library2.herokuapp.com/rules/max_borrow/")
+        fetch(endpoints.max_borrow)
             .then(res => res.json())
             .then(res => {
                 setMaxBorrow(res)
             })
-        fetch("https://library2.herokuapp.com/rules/borrow_interval/")
+        fetch(endpoints.borrow_interval)
             .then(res => res.json())
             .then(res => {
                 setDueDay(res)
@@ -104,7 +105,7 @@ export default function UserCart() {
 
     //Get cart data
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/book_shelf/', {
+        fetch(endpoints.bookshelf, {
             headers: {
                 'Authorization': 'Bearer ' + token
             },
@@ -133,7 +134,7 @@ export default function UserCart() {
 
     //Get reserved Data
     useEffect(() => {
-        fetch(`https://library2.herokuapp.com/users/user/${userInfo.userId}/reserved_book/`,
+        fetch(`${endpoints.user}${userInfo.userId}/reserved_book/`,
             {
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -183,7 +184,7 @@ export default function UserCart() {
                             userId: userInfo.userId
                         })
                     }
-                    await fetch('https://library2.herokuapp.com/books/reserve/', option)
+                    await fetch(endpoints.book_reserve, option)
                         .then(res => {
                             if (res.status === 409)
                                 return res.json()
@@ -226,7 +227,7 @@ export default function UserCart() {
                     bookIds: selectedCartBooks.map(ele => ele.bookId)
                 })
             }
-            await fetch('https://library2.herokuapp.com/book_shelf/', option)
+            await fetch(endpoints.bookshelf, option)
             handleClearRowsCart()
             handleSelectedCartBooks()
             setAPICart(cur => !cur)
@@ -262,7 +263,7 @@ export default function UserCart() {
                         userId: userInfo.userId
                     })
                 }
-                await fetch('https://library2.herokuapp.com/books/reserve/', option)
+                await fetch(endpoints.book_reserve, option)
             }
             handleClearRowsReserved()
             handleSelectedReservedBooks()

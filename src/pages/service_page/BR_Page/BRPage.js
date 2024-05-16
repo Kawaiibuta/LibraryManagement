@@ -5,6 +5,7 @@ import './BRPage.scss'
 import { AppContext } from '../../../App'
 import { useContext, useEffect, useState } from 'react'
 import alert from '../../components/alert'
+import endpoints from '../../../constraints/endpoint'
 
 export default function BRPage() {
     //Define data from system
@@ -78,7 +79,7 @@ export default function BRPage() {
 
     //get max borrow
     useEffect(() => {
-        fetch("https://library2.herokuapp.com/rules/max_borrow/", {
+        fetch(endpoints.max_borrow, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -87,7 +88,7 @@ export default function BRPage() {
             .then(res => {
                 setMaxBorrow(res)
             })
-        fetch("https://library2.herokuapp.com/rules/borrow_interval/", {
+        fetch(endpoints.borrow_interval, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -100,7 +101,7 @@ export default function BRPage() {
 
     //Get reserved Data
     useEffect(() => {
-        fetch(`https://library2.herokuapp.com/users/user/${userInfo.userId}/reserved_book/`,
+        fetch(`${endpoints.user}${userInfo.userId}/reserved_book/`,
             {
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -121,7 +122,7 @@ export default function BRPage() {
 
     //Get borrowed Data
     useEffect(() => {
-        fetch(`https://library2.herokuapp.com/users/borrow_book/${userInfo.userId}/`)
+        fetch(`${endpoints.user_borrow_book}${userInfo.userId}/`)
             .then(res => res.json())
             .then(books => {
                 books.map((ele, index) => {
@@ -138,7 +139,7 @@ export default function BRPage() {
         if (bookId === "")
             alert("Thông tin không được để trống")
         else {
-            await fetch(`https://library2.herokuapp.com/books/book/${bookId}`,
+            await fetch(`${endpoints.book}${bookId}`,
                 {
                     headers: {
                         'Authorization': 'Bearer ' + token
@@ -182,7 +183,7 @@ export default function BRPage() {
                     userId: userInfo.userId
                 })
             }
-            await fetch('https://library2.herokuapp.com/book_borrow_records/', option)
+            await fetch(endpoints.book_borrow_records, option)
                 .then(res => res.json())
                 .then(book => {
                     if (book.message) {
@@ -220,10 +221,10 @@ export default function BRPage() {
                     userId: userInfo.userId
                 })
             }
-            await fetch('https://library2.herokuapp.com/book_return_records/', option)
+            await fetch(endpoints.book_borrow_records, option)
                 .then(res => res.json())
                 .then(async function (book) {
-                    await fetch(`https://library2.herokuapp.com/book_borrow_return_histories/return_session/${book[0].returnSessionId}/`)
+                    await fetch(`${endpoints.book_borrow_return_session}${book[0].returnSessionId}/`)
                         .then(res => res.json())
                         .then(rec => { setBRInfo(rec.info) })
                 })

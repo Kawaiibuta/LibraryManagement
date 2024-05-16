@@ -27,7 +27,7 @@ export function BookInfoAdmin(props) {
     const [maxPY, setMaxPY] = useState()
 
     useEffect(() => {
-        fetch(`${endpoints.rules}/max_publish_year/`, {
+        fetch(endpoints.max_publish_year, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }

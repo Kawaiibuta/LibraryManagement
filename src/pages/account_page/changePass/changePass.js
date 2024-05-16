@@ -4,6 +4,7 @@ import { useState, useContext } from "react"
 import alert from '../../components/alert'
 import { AppContext } from '../../../App'
 import success from '../../components/success'
+import endpoints from '../../../constraints/endpoint'
 
 export default function Info() {
     const { userInfo, isAdmin, adminInfo } = useContext(AppContext)
@@ -38,7 +39,7 @@ export default function Info() {
                     newPassword: newPass,
                 })
             }
-            await fetch(`https://library2.herokuapp.com/users/password/`, option)
+            await fetch(endpoints.user_password, option)
                 .then(res => {
                     if (res.status === 409)
                         return res.json()

@@ -5,6 +5,7 @@ import { AppContext } from '../../../App'
 import DataTable from 'react-data-table-component'
 import { CustomStyle } from './table_props'
 import { borrowDateSort, returnDateSort } from '../../components/dateSort'
+import endpoints from '../../../constraints/endpoint'
 
 export default function UserHistoryPage() {
     const { userInfo, setUserInfo, setBRInfo } = useContext(AppContext)
@@ -17,7 +18,7 @@ export default function UserHistoryPage() {
     useEffect(() => {
         async function handleClick(ele, e) {
             e.target.style.cursor = "wait"
-            await fetch(`https://library2.herokuapp.com/book_borrow_return_histories/return_session/${ele.returnSessionId}/`)
+            await fetch(`${endpoints.book_borrow_return_session}${ele.returnSessionId}/`)
                 .then(res => res.json())
                 .then(rec => {
                     setBRInfo(rec.info)
@@ -27,7 +28,7 @@ export default function UserHistoryPage() {
             navigate("/ReturnCard")
         }
 
-        fetch(`https://library2.herokuapp.com/book_borrow_return_histories/user/${userInfo.userId}/`)
+        fetch(`${endpoints.book_borrow_return_user}${userInfo.userId}/`)
             .then(res => res.json())
             .then(brInfo => {
                 brInfo.map((ele, index) => {
