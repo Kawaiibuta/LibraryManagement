@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react'
 import nomalize from '../../components/nomalize'
 import alert from '../../components/alert'
 import { AppContext } from '../../../App'
+import endpoints from '../../../constraints/endpoint'
 
 export default function BRBookSettingPage() {
     const { token } = useContext(AppContext)
@@ -17,19 +18,19 @@ export default function BRBookSettingPage() {
     const [enableEdit, setEnableEdit] = useState(false)
 
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/rules/max_borrow/')
+        fetch(endpoints.max_borrow)
             .then(res => res.json())
             .then(res => setMaxBorrow(res))
-        fetch('https://library2.herokuapp.com/rules/fine_per_day/')
+        fetch(endpoints.fine_per_day)
             .then(res => res.json())
             .then(res => setFine(res))
-        fetch('https://library2.herokuapp.com/rules/borrow_due/')
+        fetch(endpoints.borrow_due)
             .then(res => res.json())
             .then(res => setMaxDayBr(res))
-        fetch('https://library2.herokuapp.com/rules/reserve_day/')
+        fetch(endpoints.reserver_day)
             .then(res => res.json())
             .then(res => setMaxHourOr(res))
-        fetch('https://library2.herokuapp.com/rules/borrow_interval/')
+        fetch(endpoints.borrow_interval)
             .then(res => res.json())
             .then(res => setMaxDayInter(res))
 
@@ -93,7 +94,7 @@ export default function BRBookSettingPage() {
                         value: String(maxBorrow)
                     })
                 }
-                await fetch('https://library2.herokuapp.com/rules/max_borrow/', optionMaxBorrow)
+                await fetch(endpoints.max_borrow, optionMaxBorrow)
 
                 //fetch max_fine
                 const optionFine = {
@@ -106,7 +107,7 @@ export default function BRBookSettingPage() {
                         value: String(fine)
                     })
                 }
-                await fetch('https://library2.herokuapp.com/rules/fine_per_day/', optionFine)
+                await fetch(endpoints.fine_per_day, optionFine)
 
                 //fetch max_Dayborrow
                 const optionMaxDayBr = {
@@ -119,7 +120,7 @@ export default function BRBookSettingPage() {
                         value: String(maxDayBr)
                     })
                 }
-                await fetch('https://library2.herokuapp.com/rules/borrow_due/', optionMaxDayBr)
+                await fetch(endpoints.borrow_due, optionMaxDayBr)
 
                 //fetch max_Hour Or
                 const optionMaxHourOr = {
@@ -132,7 +133,7 @@ export default function BRBookSettingPage() {
                         value: String(maxHourOr)
                     })
                 }
-                await fetch('https://library2.herokuapp.com/rules/reserve_day/', optionMaxHourOr)
+                await fetch(endpoints.reserver_day, optionMaxHourOr)
 
 
                 //fetch max_Inter
@@ -146,7 +147,7 @@ export default function BRBookSettingPage() {
                         value: String(maxDayInter)
                     })
                 }
-                await fetch('https://library2.herokuapp.com/rules/borrow_interval/', optionInter)
+                await fetch(endpoints.borrow_interval, optionInter)
 
                 setEnableEdit(cur => !cur)
 
@@ -163,19 +164,19 @@ export default function BRBookSettingPage() {
         const refreshBtn = document.querySelector('.BRBook-setting .refresh-btn')
         refreshBtn.style.cursor = "wait"
 
-        await fetch('https://library2.herokuapp.com/rules/max_borrow/')
+        await fetch(endpoints.max_borrow)
             .then(res => res.json())
             .then(res => setMaxBorrow(res))
-        await fetch('https://library2.herokuapp.com/rules/fine_per_day/')
+        await fetch(endpoints.fine_per_day)
             .then(res => res.json())
             .then(res => setFine(res))
-        await fetch('https://library2.herokuapp.com/rules/borrow_due/')
+        await fetch(endpoints.borrow_due)
             .then(res => res.json())
             .then(res => setMaxDayBr(res))
-        await fetch('https://library2.herokuapp.com/rules/reserve_day/')
+        await fetch(endpoints.reserver_day)
             .then(res => res.json())
             .then(res => setMaxHourOr(res))
-        await fetch('https://library2.herokuapp.com/rules/borrow_interval/')
+        await fetch(endpoints.borrow_interval)
             .then(res => res.json())
             .then(res => setMaxDayInter(res))
 

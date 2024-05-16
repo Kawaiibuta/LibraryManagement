@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react'
 import nomalize from '../../components/nomalize'
 import alert from '../../components/alert'
 import { AppContext } from '../../../App'
+import endpoints from '../../../constraints/endpoint'
 
 export default function UserSettingPage() {
     const { token } = useContext(AppContext)
@@ -14,13 +15,13 @@ export default function UserSettingPage() {
     const [enableEdit, setEnableEdit] = useState(false)
 
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/rules/min_age/')
+        fetch(endpoints.min_age)
             .then(res => res.json())
             .then(res => setMinAge(res))
-        fetch('https://library2.herokuapp.com/rules/max_age/')
+        fetch(endpoints.max_age)
             .then(res => res.json())
             .then(res => setMaxAge(res))
-        fetch('https://library2.herokuapp.com/rules/valid_period_of_user/')
+        fetch(endpoints.valid_period_of_user)
             .then(res => res.json())
             .then(res => setValid(res))
     }, [])
@@ -74,7 +75,7 @@ export default function UserSettingPage() {
                         value: String(minAge)
                     })
                 }
-                await fetch(`https://library2.herokuapp.com/rules/min_age/`, optionMin)
+                await fetch(endpoints.min_age, optionMin)
 
                 //fetch max_age
                 const optionMax = {
@@ -87,7 +88,7 @@ export default function UserSettingPage() {
                         value: String(maxAge)
                     })
                 }
-                await fetch(`https://library2.herokuapp.com/rules/max_age/`, optionMax)
+                await fetch(endpoints.max_age, optionMax)
 
                 //fetch valid
                 const optionValid = {
@@ -100,7 +101,7 @@ export default function UserSettingPage() {
                         value: String(valid)
                     })
                 }
-                await fetch(`https://library2.herokuapp.com/rules/valid_period_of_user/`, optionValid)
+                await fetch(endpoints.valid_period_of_user, optionValid)
 
                 setEnableEdit(cur => !cur)
 
@@ -117,13 +118,13 @@ export default function UserSettingPage() {
         const refreshBtn = document.querySelector('.user-setting .refresh-btn')
         refreshBtn.style.cursor = "wait"
 
-        await fetch('https://library2.herokuapp.com/rules/min_age/')
+        await fetch(endpoints.min_age)
             .then(res => res.json())
             .then(res => setMinAge(res))
-        await fetch('https://library2.herokuapp.com/rules/max_age/')
+        await fetch(endpoints.max_age)
             .then(res => res.json())
             .then(res => setMaxAge(res))
-        await fetch('https://library2.herokuapp.com/rules/valid_period_of_user/')
+        await fetch(endpoints.valid)
             .then(res => res.json())
             .then(res => setValid(res))
 

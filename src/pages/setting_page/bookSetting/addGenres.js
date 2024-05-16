@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import alert from '../../components/alert'
+import endpoints from '../../../constraints/endpoint'
 
 export default function AddGenres(props) {
     const [data, setData] = useState("")
@@ -29,7 +30,7 @@ export default function AddGenres(props) {
                     name: data
                 })
             }
-            await fetch('https://library2.herokuapp.com/genres/', option)
+            await fetch(endpoints.genres, option)
 
             props.setAPI(cur => !cur)
             setData("")

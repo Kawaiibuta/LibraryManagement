@@ -4,6 +4,7 @@ import { SelectedTypes } from '../components/selectedTypes'
 import './components.scss'
 import alert from './alert.js'
 import { AppContext } from '../../App.js'
+import endpoints from '../../constraints/endpoint.js'
 
 export function BookInfoAdmin(props) {
     const { token } = useContext(AppContext)
@@ -26,7 +27,7 @@ export function BookInfoAdmin(props) {
     const [maxPY, setMaxPY] = useState()
 
     useEffect(() => {
-        fetch("https://library2.herokuapp.com/rules/max_publish_year/", {
+        fetch(endpoints.max_publish_year, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -136,7 +137,7 @@ export function BookInfoAdmin(props) {
                         genreIds: tempType.map(ele => ele.genreId)
                     })
                 }
-                await fetch(`https://library2.herokuapp.com/books/book/${props.bookId}`, option)
+                await fetch(`${endpoints.books}/book/${props.bookId}`, option)
 
                 //done
                 refreshBtn.style.display = "none"
@@ -167,7 +168,7 @@ export function BookInfoAdmin(props) {
     //handleClickRefresh
     async function handleClickRefresh() {
         refreshBtn.style.cursor = "wait"
-        await fetch(`https://library2.herokuapp.com/books/book/${props.bookId}`)
+        await fetch(`${endpoints.books}/book/${props.bookId}`)
             .then(res => res.json())
             .then(book => {
                 props.setBookInfo({

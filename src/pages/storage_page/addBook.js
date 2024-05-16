@@ -4,6 +4,7 @@ import nomalize from '../components/nomalize'
 import alert from '../components/alert'
 import { AppContext } from '../../App.js'
 import success from '../components/success'
+import endpoints from '../../constraints/endpoint.js'
 
 export function AddBook(props) {
     //define info Books
@@ -29,7 +30,7 @@ export function AddBook(props) {
     }
 
     useEffect(() => {
-        fetch("https://library2.herokuapp.com/rules/max_publish_year/", {
+        fetch(endpoints.max_publish_year, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -110,7 +111,7 @@ export function AddBook(props) {
                     genreIds: tempType.map(ele => ele.genreId)
                 })
             }
-            await fetch('https://library2.herokuapp.com/books/', option)
+            await fetch(endpoints.books, option)
                 .then(res => res.json())
                 .then(res => {
                     const arr = [res, ...props.bookAPI]

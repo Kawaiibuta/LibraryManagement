@@ -10,6 +10,7 @@ import { Selection } from '../components/select'
 import alert from '../components/alert'
 import statusSort from '../components/sortStatus'
 import success from '../components/success'
+import endpoints from '../../constraints/endpoint';
 
 export default function StoragePage() {
     //Define seacrh-tool
@@ -79,7 +80,7 @@ export default function StoragePage() {
 
     //Call API
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/books/')
+        fetch(endpoints.books)
             .then(res => res.json())
             .then(books => {
                 setBookAPI(() => {
@@ -91,7 +92,7 @@ export default function StoragePage() {
 
     //Call API Genres
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/genres/')
+        fetch(endpoints.genres)
             .then(res => res.json())
             .then(genres => setGenres(genres))
     }, [])
@@ -128,7 +129,7 @@ export default function StoragePage() {
                         genreIds: ele.genres.map(ele => ele.genreId)
                     })
                 }
-                await fetch('https://library2.herokuapp.com/books/', option)
+                await fetch(endpoints.books, option)
                     .then(res => res.json())
                     .then(res => {
                         const arr = [res, ...bookAPI]
@@ -244,7 +245,7 @@ export default function StoragePage() {
                 selected={selectedBooks || []}
                 handleClearRows={handleClearRows}
                 handleSelected={handleSelectedBooks}
-                fetchLink={"https://library2.herokuapp.com/books/book/"}
+                fetchLink={`${endpoints.books}/book/`}
                 ele={"bookId"}
             >
             </AcceptRemove>

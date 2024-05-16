@@ -7,6 +7,7 @@ import handleExport from '../components/handleExport'
 import { AppContext } from '../../App'
 import { borrowDateSort, returnDateSort } from '../components/dateSort'
 import alert from '../components/alert'
+import endpoints from '../../constraints/endpoint';
 
 export default function BorrowByGenres() {
     const { token } = useContext(AppContext);
@@ -64,7 +65,7 @@ export default function BorrowByGenres() {
         }
     ]
     useEffect(() => {
-        fetch(`https://library2.herokuapp.com/reports/pass_due?month=${curMonth}&year=${curYear}`, {
+        fetch(`${endpoints.report_pass_due}?month=${curMonth}&year=${curYear}`, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -79,7 +80,7 @@ export default function BorrowByGenres() {
     }, [curMonth, curYear, token])
 
     async function handleClickStat() {
-        await fetch(`https://library2.herokuapp.com/reports/pass_due?month=${month}&year=${year}`, {
+        await fetch(`${endpoints.report_pass_due}?month=${month}&year=${year}`, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }

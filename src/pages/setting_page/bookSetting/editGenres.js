@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import alert from '../../components/alert'
+import endpoints from '../../../constraints/endpoint'
 
 export default function EditGenres(props) {
     const [data, setData] = useState("")
@@ -33,7 +34,7 @@ export default function EditGenres(props) {
                     name: data
                 })
             }
-            await fetch(`https://library2.herokuapp.com/genres/${props.genresEdit.genreId}`, option)
+            await fetch(`${endpoints.genres}${props.genresEdit.genreId}`, option)
 
             props.setAPI(cur => !cur)
 

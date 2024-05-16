@@ -7,6 +7,7 @@ import EditGenres from './editGenres'
 import alert from '../../components/alert'
 import nomalize from '../../components/nomalize'
 import { AppContext } from '../../../App'
+import endpoints from '../../../constraints/endpoint'
 
 export default function BookSettingPage() {
     const { token } = useContext(AppContext)
@@ -25,7 +26,7 @@ export default function BookSettingPage() {
     const [maxYear, setMaxYear] = useState("")
 
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/rules/max_publish_year/')
+        fetch(endpoints.max_publish_year)
             .then(res => res.json())
             .then(res => setMaxYear(res))
     }, [])
@@ -46,7 +47,7 @@ export default function BookSettingPage() {
 
     //Call API Genres
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/genres/')
+        fetch(endpoints.genres)
             .then(res => res.json())
             .then(genres => {
                 function handleClickEdit(ele) {
@@ -121,7 +122,7 @@ export default function BookSettingPage() {
                 },
             }
             for (var a of selectedGenres) {
-                await fetch(`https://library2.herokuapp.com/genres/${a.genreId}/`, option)
+                await fetch(`${endpoints.genres}${a.genreId}/`, option)
             }
             handleSelected()
             handleClearRows()
@@ -134,7 +135,7 @@ export default function BookSettingPage() {
         const refreshBtn = document.querySelector('.book-setting .refresh-btn')
         refreshBtn.style.cursor = "wait"
 
-        await fetch('https://library2.herokuapp.com/rules/max_publish_year/')
+        await fetch(endpoints.max_publish_year)
             .then(res => res.json())
             .then(res => setMaxYear(res))
 
@@ -172,7 +173,7 @@ export default function BookSettingPage() {
                         value: String(maxYear)
                     })
                 }
-                await fetch(`https://library2.herokuapp.com/rules/max_publish_year/`, option)
+                await fetch(endpoints.max_publish_year, option)
 
                 setEnableEdit(cur => !cur)
 

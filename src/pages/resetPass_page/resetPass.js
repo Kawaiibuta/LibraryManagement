@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import alert from '../components/alert'
 import success from '../components/success'
+import endpoints from '../../constraints/endpoint'
 
 
 export default function ResetPassPage() {
@@ -34,7 +35,7 @@ export default function ResetPassPage() {
                 })
 
             }
-            await fetch('https://library2.herokuapp.com/users/password_reset/', option)
+            await fetch(endpoints.resetPassword, option)
                 .then(res => { if (res.status === 404) return res.json() })
                 .then(async res => {
                     if (res) {
