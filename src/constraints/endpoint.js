@@ -8,7 +8,7 @@ const endpoints = {
     book_borrow_records: baseEndpoint + "book_borrow_records/",
     books: baseEndpoint + "books/",
     book: baseEndpoint + "books/book/",
-    
+    user_admin: baseEndpoint + "users/for_admin/",
     book_reserve: baseEndpoint + "books/reserve/",
     login: baseEndpoint + "auth/login/",
     resetPassword: baseEndpoint + "users/password_reset/",
