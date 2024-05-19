@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Selection } from '../components/select'
 import alert from '../components/alert'
 import success from '../components/success'
+import endpoints from '../../constraints/endpoint'
 
 export function AddUser(props) {
     //Info-user
@@ -59,7 +60,7 @@ export function AddUser(props) {
                 })
             }
 
-            await fetch('https://library2.herokuapp.com/users/for_admin/', option)
+            await fetch(endpoints.user_admin, option)
                 .then(res => res.json())
                 .then(async res => {
                     if (res.message) {

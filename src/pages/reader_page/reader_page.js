@@ -10,6 +10,7 @@ import { AppContext } from '../../App'
 import { useNavigate } from 'react-router-dom'
 import { createdDateSort } from '../components/dateSort'
 import alert from '../components/alert'
+import endpoints from '../../constraints/endpoint.js';
 
 export default function ReaderPage() {
     const { token, setUserInfo } = useContext(AppContext);
@@ -84,7 +85,7 @@ export default function ReaderPage() {
 
     //Call API
     useEffect(() => {
-        fetch('https://library2.herokuapp.com/users', {
+        fetch(endpoints.users, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -189,7 +190,7 @@ export default function ReaderPage() {
             selected={selectedUsers || []}
             handleClearRows={handleClearRows}
             handleSelected={handleSelectedUsers}
-            fetchLink={"https://library2.herokuapp.com/users/user/"}
+            fetchLink={endpoints.user}
             ele={"userId"}
             access_token={token}
         />

@@ -4,6 +4,7 @@ import nomalize from '..//components/nomalize'
 import { AppContext } from '../../App'
 import { useNavigate } from 'react-router-dom'
 import alert from '../components/alert'
+import endpoints from '../../constraints/endpoint'
 
 export function UserInfo(props) {
     const { token, setUserInfo } = useContext(AppContext);
@@ -108,7 +109,7 @@ export function UserInfo(props) {
                         type: readerType
                     })
                 }
-                await fetch(`https://library2.herokuapp.com/users/user/${props.ele.userId}`, option)
+                await fetch(`${endpoints.user}${props.ele.userId}`, option)
                     .then(res => {
                         if (res.status === 409)
                             return res.json()
@@ -166,7 +167,7 @@ export function UserInfo(props) {
         const refresh = document.querySelector(".info-table-user .refresh-btn-Edit")
         refresh.style.cursor = "wait"
 
-        await fetch(`https://library2.herokuapp.com/users/user/${props.ele.userId}`, {
+        await fetch(`${endpoints.user}${props.ele.userId}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
