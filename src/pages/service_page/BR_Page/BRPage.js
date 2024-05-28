@@ -221,7 +221,7 @@ export default function BRPage() {
                     userId: userInfo.userId
                 })
             }
-            await fetch(endpoints.book_borrow_records, option)
+            await fetch(endpoints.book_return_records, option)
                 .then(res => res.json())
                 .then(async function (book) {
                     await fetch(`${endpoints.book_borrow_return_session}${book[0].returnSessionId}/`)
